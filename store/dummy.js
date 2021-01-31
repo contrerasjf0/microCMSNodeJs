@@ -1,24 +1,52 @@
+const calc = require("../utils/calc");
+
 const db = {
   'user': [
-      { id: 1, name: 'Carlos' },
+      { id: 1, name: 'Frank' },
+      { id: 2, name: 'Chiviscovis' },
   ],
 };
 
-function list(tabla) {
-  return db[tabla];
+async function list(table) {
+  return db[table];
 }
 
-function get(tabla, id) {
-  let col = list(tabla);
+async function get(table, id) {
+  let col = await list(table);
   return col.filter(item => item.id === id)[0] || null;
 }
 
-function upsert(tabla, data) {
-  db[collection].push(data);
+async function upsert(table, data) {
+
+  let user = null;
+
+  if(data.id)
+    user = await get(table, data.id);
+
+
+  if(!user){
+    data.id = calc.rand(100);
+    db[table].push(data);
+  }else{
+    data = {
+      ...user,
+      ...data,
+      id: user.id
+    }
+    const index = db[table].findIndex((record) => record.id === user.id);
+    db[table].splice(index, 1);
+    db[table].push(data);   
+  }
+  
+
+  return data;
 }
 
-function remove(tabla, id) {
-  return true;
+async function remove(table, id) {
+  const index = db[table].findIndex((record) => record.id === id);
+  const deletedItems = db[table].splice(index, 1);
+
+  return deletedItems;
 }
 
 module.exports = {

@@ -1,9 +1,16 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const config = require('../config.js');
 const user = require('./components/user/network');
 
 const app = express();
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 // ROUER
 app.use('/api/user', user);
