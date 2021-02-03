@@ -18,22 +18,21 @@ async function get(table, id) {
 
 async function upsert(table, data) {
 
-  let user = null;
+  if (!db[tabla]) {
+    db[tabla] = [];
+}
 
-  if(data.id)
-    user = await get(table, data.id);
+  let record = await get(table, data.id);
 
 
-  if(!user){
-    data.id = calc.rand(100);
+  if(!record){
     db[table].push(data);
   }else{
     data = {
-      ...user,
-      ...data,
-      id: user.id
+      ...record,
+      ...data
     }
-    const index = db[table].findIndex((record) => record.id === user.id);
+    const index = db[table].findIndex((item) => item.id === record.id);
     db[table].splice(index, 1);
     db[table].push(data);   
   }
