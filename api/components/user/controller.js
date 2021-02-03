@@ -1,4 +1,5 @@
 const { nanoid } = require('nanoid')
+
 const auth = require('../auth')
 const TABLE = 'user';
 
