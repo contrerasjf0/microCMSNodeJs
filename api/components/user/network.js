@@ -1,5 +1,6 @@
 const express = require('express');
 
+const secure = require('./secure');
 const response = require('../../../network/response');
 const Controller = require('./index');
 
@@ -36,6 +37,17 @@ router.post('/', function (req, res) {
           response.error(req, res, err.message, 500);
       });
   
+});
+
+router.put('/', secure('update'), function (req, res) {
+    Controller.upsert(req.body)
+        .then((user) => {
+            response.success(req, res, 'succes', 200, user);
+        })
+        .catch((err) => {
+            response.error(req, res, err.message, 500);
+        });
+    
 });
 
 router.delete('/', function (req, res) {
