@@ -22,6 +22,9 @@ const check = {
         throw error('Error token', 401);
       }
   },
+  logged: function(req, owner) {
+    const decoded = decodeHeader(req);
+},
 }
 
 function decodeHeader(req) {
