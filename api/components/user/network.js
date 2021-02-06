@@ -59,6 +59,15 @@ router.post('/follow/:id', secure('follow'), function (req, res, next) {
         .catch(next);
 });
 
+router.get('/:id/following', function (req, res, next) {
+	return Controller.following(req.params.id)
+		.then( (data) => {
+			return response.success(req, res, data, 200);
+		})
+		.catch(next);
+});
+
+
 
 
 module.exports = router; 
