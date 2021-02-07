@@ -7,13 +7,36 @@ function createRemoteDB(host, port) {
         return req('GET', table);
     }
 
-    // function get(table, id)
-    // function upsert(table, data)
-    // function query(table, query, join)
+    function get(table, id){
+      return req('GET', table, id);
+    }
 
-    function req(method, table, data) {
+    function upsert(table, data){
+      return req('POST', table, null ,data);
+    }
+
+    function remove (table, id) {
+      return req('DELETE', table, id );
+    }
+
+    /**TODO*/
+    /*function query(table, query, join){
+
+    }*/
+
+    function req(method, table, id, data) {
         let url = URL + '/' + table;
-        body = '';
+        let body = '';
+
+        if(id){
+          url += '/' + id;
+        }
+
+        if(data){
+          body = data;
+        }
+
+        
 
         return new Promise((resolve, reject) => {
             request({
@@ -37,6 +60,9 @@ function createRemoteDB(host, port) {
 
     return {
         list,
+        get,
+        upsert,
+        remove
     }
 }
 

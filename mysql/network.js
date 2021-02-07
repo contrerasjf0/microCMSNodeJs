@@ -9,6 +9,7 @@ router.get('/:table', list);
 router.get('/:table/:id', get);
 router.post('/:table', insert);
 router.put('/:table', upsert);
+router.delete('/:table/:id', remove);
 
 async function list(req, res, next) {
     const datos = await Store.list(req.params.table)
@@ -28,6 +29,11 @@ async function insert(req, res, next) {
 async function upsert(req, res, next) {
     const datos = await Store.upsert(req.params.table, req.body)
     response.success(req, res, datos, 200);
+}
+
+async function remove(req, res, next) {
+  const datos = await Store.remove(req.params.table, req.params.id)
+  response.success(req, res, datos, 200);
 }
 
 module.exports = router;

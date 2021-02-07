@@ -96,9 +96,19 @@ function query(table, query, join) {
     })
 }
 
+function remove(table, id) {
+    return new Promise((resolve, reject) => {
+        connection.query(`DELETE FROM ${table} WHERE id=${id}`, (err, data) => {
+            if (err) return reject(err);
+            resolve(data);
+        })
+    })
+}
+
 module.exports = {
     list,
     get,
     upsert,
-    query
+    query,
+    remove
 };
