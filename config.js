@@ -21,6 +21,11 @@ module.exports = {
     cacheService: {
         host: process.env.REDIS_HOST || 'localhost',
         port: process.env.REDIS_PORT || 3003,
+    },
+    redis: {
+        host: process.env.REDIS_HOST || '',
+        port: process.env.REDIS_PORT || 135,
+        password: process.env.REDIS_PASS || '',
     }
 
 }
