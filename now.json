@@ -1,5 +1,17 @@
 {
   "version": 2,
+  "env": {
+    "NODE_ENV": "production",
+    "MYSQL_DB_HOST": "@mysql_db_host",
+    "MYSQL_DB_PORT": "@mysql_db_port",
+    "MYSQL_DB_USER": "@mysql_db_user",
+    "MYSQL_DB_PASSWORD": "@mysql_db_password",
+    "MYSQL_DATABASE": "@mysql_database",
+    "MYSQL_SERVICE_HOST": "@mysql_service_host",
+    "SENTRY_ID": "@sentry_id",
+    "SENTRY_DNS": "@sentry_dns",
+    "AUTH_JWT_SECRET": "@auth_jwt_token"
+  },
   "builds": [
       {
           "src": "api/index.js",
